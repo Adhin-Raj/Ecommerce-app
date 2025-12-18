@@ -37,10 +37,10 @@ export default function LoginScreen() {
           showPassword={showPassword}
         />
         <View style={styles.forgotPassword}>
-          <Text style={styles.linkText}>Forgot your password? </Text>
+          <Text style={[styles.linkText,{fontFamily:'medium-sans'}]}>Forgot your password? </Text>
           <Link
             href={"/"}
-            style={[styles.linkText, { textDecorationLine: "underline" }]}
+            style={[styles.linkText, { textDecorationLine: "underline" ,fontFamily:'sans'}]}
           >
             Reset your password
           </Link>
