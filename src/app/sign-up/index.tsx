@@ -5,21 +5,20 @@ import CustomInput from "@/src/components/CustomInput";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    Text,
+    View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function LoginScreen() {
+export default function SignUpScreen() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -27,8 +26,9 @@ export default function LoginScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.subContainer}
       >
-        <Text style={styles.title}>Login to your account</Text>
-        <Text style={styles.description}>It's great to see you again.</Text>
+        <Text style={styles.title}>Create an account</Text>
+        <Text style={styles.description}>Let's create your account.</Text>
+        <CustomInput label="Full Name" placeholderText="Enter your full name" />
         <CustomInput label="Email" placeholderText="Enter your email address" />
         <CustomInput
           label="Password"
@@ -36,17 +36,17 @@ export default function LoginScreen() {
           passwordShowFun={handleShowPassword}
           showPassword={showPassword}
         />
-        <View style={styles.forgotPassword}>
-          <Text style={styles.linkText}>Forgot your password? </Text>
-          <Link
-            href={"/"}
-            style={[styles.linkText, { textDecorationLine: "underline" }]}
-          >
-            Reset your password
-          </Link>
-        </View>
-        <CustomButton btnLabel="Login" />
-
+        <Text style={styles.termsText}>
+          By signing up you agree to our{" "}
+          <Text style={{ textDecorationLine: "underline", fontFamily: "sans" }}>
+            Terms, Privacy Policy
+          </Text>
+          and
+          <Text style={{ textDecorationLine: "underline", fontFamily: "sans" }}>
+            Cookie Use
+          </Text>
+        </Text>
+        <CustomButton btnLabel="Create an Account" />
         <View
           style={{
             flexDirection: "row",
@@ -59,13 +59,13 @@ export default function LoginScreen() {
           <View style={styles.line} />
         </View>
         <CustomButton
-          btnLabel="Login with Google"
+          btnLabel="Sign Up with Google"
           imgSrc={GoogleLogo}
           customBtnStyle={styles.googleBtn}
           customLabelStyle={styles.googleBtnLabel}
         />
         <CustomButton
-          btnLabel="Login with Facebook"
+          btnLabel="Sign Up with Facebook"
           imgSrc={FacebookLogo}
           customBtnStyle={styles.facebookBtn}
         />
@@ -76,10 +76,10 @@ export default function LoginScreen() {
               { fontFamily: "medium-sans", color: "#777777" },
             ]}
           >
-            Don't have an account?
+            Already have an account?
           </Text>
           <Link
-            href={"/sign-up"}
+            href={"/login"}
             style={[
               styles.linkText,
               {
@@ -89,7 +89,7 @@ export default function LoginScreen() {
               },
             ]}
           >
-            Join
+            Login
           </Link>
         </View>
       </KeyboardAvoidingView>
@@ -116,13 +116,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 24,
   },
-  forgotPassword: {
-    flexDirection: "row",
-    marginBottom: 24,
-  },
-  linkText: {
+  termsText: {
     color: "#1A1A1A",
-    fontSize: 14,
+    fontFamily: "medium-sans",
+    marginBottom: 24,
   },
   line: {
     height: 1,
@@ -143,7 +140,11 @@ const styles = StyleSheet.create({
   },
   login: {
     flexDirection: "row",
-    marginTop: 140,
+    marginTop: 40,
     justifyContent: "center",
+  },
+  linkText: {
+    color: "#1A1A1A",
+    fontSize: 14,
   },
 });
