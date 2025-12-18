@@ -15,15 +15,16 @@ export default function Index() {
   });
 
   useEffect(() => {
-    async function prepare() {
-      if (!loaded && !error) return null;
+    if (!loaded && !error) return;
+    const prepare = async () => {
       await new Promise((res) => setTimeout(res, 2000));
+
       setIsReady(true);
       await SplashScreen.hideAsync();
-    }
+    };
 
     prepare();
-  }, []);
+  }, [loaded, error]);
 
   if (!isReady) {
     return <CustomSplashScreen />;
