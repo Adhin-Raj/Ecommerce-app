@@ -7,7 +7,6 @@ import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -28,75 +27,67 @@ export default function LoginScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.subContainer}
       >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <Text style={styles.title}>Login to your account</Text>
-          <Text style={styles.description}>It's great to see you again.</Text>
-          <CustomInput
-            label="Email"
-            placeholderText="Enter your email address"
-          />
-          <CustomInput
-            label="Password"
-            placeholderText="Enter your password"
-            passwordShowFun={handleShowPassword}
-            showPassword={showPassword}
-          />
-          <View style={styles.forgotPassword}>
-            <Text style={styles.linkText}>Forgot your password? </Text>
-            <Link
-              href={"/"}
-              style={[styles.linkText, { textDecorationLine: "underline" }]}
-            >
-              Reset your password
-            </Link>
-          </View>
-          <CustomButton btnLabel="Login" />
-
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBlock: 24,
-            }}
+        <Text style={styles.title}>Login to your account</Text>
+        <Text style={styles.description}>It's great to see you again.</Text>
+        <CustomInput label="Email" placeholderText="Enter your email address" />
+        <CustomInput
+          label="Password"
+          placeholderText="Enter your password"
+          passwordShowFun={handleShowPassword}
+          showPassword={showPassword}
+        />
+        <View style={styles.forgotPassword}>
+          <Text style={styles.linkText}>Forgot your password? </Text>
+          <Link
+            href={"/"}
+            style={[styles.linkText, { textDecorationLine: "underline" }]}
           >
-            <View style={styles.line} />
-            <Text style={{ color: "#808080", marginInline: 10 }}>Or</Text>
-            <View style={styles.line} />
-          </View>
-          <CustomButton
-            btnLabel="Login with Google"
-            imgSrc={GoogleLogo}
-            customBtnStyle={styles.googleBtn}
-            customLabelStyle={styles.googleBtnLabel}
-          />
-          <CustomButton
-            btnLabel="Login with Facebook"
-            imgSrc={FacebookLogo}
-            customBtnStyle={styles.facebookBtn}
-          />
-          <View style={styles.login}>
-            <Text
-              style={[
-                styles.linkText,
-                { fontFamily: "medium-sans", color: "#777777" },
-              ]}
-            >
-              Don't have an account?{" "}
-            </Text>
-            <Link
-              href={"/"}
-              style={[
-                styles.linkText,
-                { textDecorationLine: "underline", fontFamily: "sans" },
-              ]}
-            >
-              Join
-            </Link>
-          </View>
-        </ScrollView>
+            Reset your password
+          </Link>
+        </View>
+        <CustomButton btnLabel="Login" />
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBlock: 24,
+          }}
+        >
+          <View style={styles.line} />
+          <Text style={{ color: "#808080", marginInline: 10 }}>Or</Text>
+          <View style={styles.line} />
+        </View>
+        <CustomButton
+          btnLabel="Login with Google"
+          imgSrc={GoogleLogo}
+          customBtnStyle={styles.googleBtn}
+          customLabelStyle={styles.googleBtnLabel}
+        />
+        <CustomButton
+          btnLabel="Login with Facebook"
+          imgSrc={FacebookLogo}
+          customBtnStyle={styles.facebookBtn}
+        />
+        <View style={styles.login}>
+          <Text
+            style={[
+              styles.linkText,
+              { fontFamily: "medium-sans", color: "#777777" },
+            ]}
+          >
+            Don't have an account?{" "}
+          </Text>
+          <Link
+            href={"/"}
+            style={[
+              styles.linkText,
+              { textDecorationLine: "underline", fontFamily: "sans" },
+            ]}
+          >
+            Join
+          </Link>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
