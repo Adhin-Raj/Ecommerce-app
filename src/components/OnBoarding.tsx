@@ -1,10 +1,11 @@
-import ArrowRight from "@/src/assets/images/arrow-right.png";
 import { useRouter } from "expo-router";
+import ArrowRight from "@/src/assets/images/arrow-right.png";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import CustomButton from "./CustomButton";
 
 export default function OnBoarding() {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Define yourself in your unique way.</Text>
@@ -14,10 +15,7 @@ export default function OnBoarding() {
         alt="onboarding-bg"
       />
       <View style={styles.btnContainer}>
-        <TouchableOpacity style={styles.btn} onPress={()=>router.push('/login')}>
-          <Text style={styles.btnLabel}>Get Started</Text>
-          <Image source={ArrowRight} alt="arrow-right" width={24} height={24} />
-        </TouchableOpacity>
+        <CustomButton btnLabel="Get Started" imgSrc={ArrowRight} handlePress={()=>router.push('/login')} />
       </View>
     </View>
   );
@@ -49,20 +47,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingInline: 24,
-  },
-  btn: {
-    backgroundColor: "#1A1A1A",
-    width: "100%",
-    paddingBlock: 12,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 8,
-    flexDirection: "row",
-    gap: 10,
-  },
-  btnLabel: {
-    color: "#FFFFFF",
-    fontFamily: "medium-sans",
-    fontSize: 16,
   },
 });
