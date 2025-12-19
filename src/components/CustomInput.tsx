@@ -10,12 +10,18 @@ import {
 
 import EyeOff from "@/src/assets/images/eye-off.png";
 import Eye from "@/src/assets/images/Eye.png";
+import { FieldError, Noop } from "react-hook-form";
+import { ErrorText } from "./ErrorText";
 
 interface CustomInputProps {
   label: string;
   placeholderText: string;
   passwordShowFun?: () => void;
   showPassword?: boolean;
+  onChange?: (...event: any[]) => void; //TODO: change optional props
+  onBlur?: Noop; //TODO: change optional props
+  value?: string; //TODO: change optional props
+  formError?: FieldError; //TODO: change optional props
 }
 
 export default function CustomInput({
@@ -23,6 +29,10 @@ export default function CustomInput({
   placeholderText,
   passwordShowFun,
   showPassword,
+  onBlur,
+  onChange,
+  value,
+  formError,
 }: CustomInputProps) {
   return (
     <View style={styles.container}>
@@ -30,6 +40,9 @@ export default function CustomInput({
       <TextInput
         placeholder={placeholderText}
         placeholderTextColor="#999999"
+        onBlur={onBlur}
+        onChangeText={onChange}
+        value={value}
         secureTextEntry={showPassword}
         style={styles.input}
       />
@@ -46,6 +59,7 @@ export default function CustomInput({
           )}
         </View>
       )}
+      {formError && <ErrorText errorMessage={formError.message} />}
     </View>
   );
 }
