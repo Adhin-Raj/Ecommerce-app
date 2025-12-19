@@ -1,9 +1,8 @@
 import FacebookLogo from "@/src/assets/images/facebook.png";
 import GoogleLogo from "@/src/assets/images/google.png";
 import CustomButton from "@/src/components/CustomButton";
-import CustomInput from "@/src/components/CustomInput";
+import SignUpForm from "@/src/components/SignUpForm";
 import { Link } from "expo-router";
-import React, { useState } from "react";
 import {
     KeyboardAvoidingView,
     Platform,
@@ -14,11 +13,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SignUpScreen() {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -28,25 +22,7 @@ export default function SignUpScreen() {
       >
         <Text style={styles.title}>Create an account</Text>
         <Text style={styles.description}>Let's create your account.</Text>
-        <CustomInput label="Full Name" placeholderText="Enter your full name" />
-        <CustomInput label="Email" placeholderText="Enter your email address" />
-        <CustomInput
-          label="Password"
-          placeholderText="Enter your password"
-          passwordShowFun={handleShowPassword}
-          showPassword={showPassword}
-        />
-        <Text style={styles.termsText}>
-          By signing up you agree to our{" "}
-          <Text style={{ textDecorationLine: "underline", fontFamily: "sans" }}>
-            Terms, Privacy Policy
-          </Text>
-          and
-          <Text style={{ textDecorationLine: "underline", fontFamily: "sans" }}>
-            Cookie Use
-          </Text>
-        </Text>
-        <CustomButton btnLabel="Create an Account" />
+        <SignUpForm/>
         <View
           style={{
             flexDirection: "row",
