@@ -1,9 +1,8 @@
 import FacebookLogo from "@/src/assets/images/facebook.png";
 import GoogleLogo from "@/src/assets/images/google.png";
 import CustomButton from "@/src/components/CustomButton";
-import CustomInput from "@/src/components/CustomInput";
+import LoginForm from "@/src/components/LoginForm";
 import { Link } from "expo-router";
-import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -14,12 +13,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoginScreen() {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -29,29 +22,7 @@ export default function LoginScreen() {
       >
         <Text style={styles.title}>Login to your account</Text>
         <Text style={styles.description}>It's great to see you again.</Text>
-        <CustomInput label="Email" placeholderText="Enter your email address" />
-        <CustomInput
-          label="Password"
-          placeholderText="Enter your password"
-          passwordShowFun={handleShowPassword}
-          showPassword={showPassword}
-        />
-        <View style={styles.forgotPassword}>
-          <Text style={[styles.linkText, { fontFamily: "medium-sans" }]}>
-            Forgot your password?{" "}
-          </Text>
-          <Link
-            href={"/"}
-            style={[
-              styles.linkText,
-              { textDecorationLine: "underline", fontFamily: "sans" },
-            ]}
-          >
-            Reset your password
-          </Link>
-        </View>
-        <CustomButton btnLabel="Login" />
-
+        <LoginForm />
         <View
           style={{
             flexDirection: "row",
@@ -148,7 +119,7 @@ const styles = StyleSheet.create({
   },
   login: {
     flexDirection: "row",
-    marginTop: 140,
+    marginTop: 126,
     justifyContent: "center",
   },
 });
