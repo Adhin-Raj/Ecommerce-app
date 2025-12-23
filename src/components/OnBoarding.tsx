@@ -15,7 +15,7 @@ export default function OnBoarding() {
         alt="onboarding-bg"
       />
       <View style={styles.btnContainer}>
-        <CustomButton btnLabel="Get Started" imgSrc={ArrowRight} handlePress={()=>router.push('/login')} />
+        <CustomButton btnLabel="Get Started" imgSrc={ArrowRight} handlePress={()=>router.push('/(auth)/sign-in')} />
       </View>
     </View>
   );
