@@ -1,13 +1,15 @@
 import { useFonts } from "expo-font";
-import { SplashScreen } from "expo-router";
+import { Redirect, SplashScreen } from "expo-router";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomSplashScreen from "../components/CustomSplashScreen";
 import OnBoarding from "../components/OnBoarding";
+import { useAuth } from "@clerk/clerk-expo";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function Index() {
+  const { isSignedIn, isLoaded } = useAuth();
   const [isReady, setIsReady] = useState(false);
   const [loaded, error] = useFonts({
     sans: require("@/src/assets/fonts/General-sans.ttf"),
@@ -26,8 +28,12 @@ export default function Index() {
     prepare();
   }, [loaded, error]);
 
-  if (!isReady) {
+  if (!isReady || !isLoaded) {
     return <CustomSplashScreen />;
+  }
+
+  if(isSignedIn) {
+    return <Redirect href={'/(home)'}/>
   }
 
   return (
