@@ -1,4 +1,4 @@
 import * as z from "zod";
-import { LoginSchema } from "./login";
+import { SignInSchema } from "./login";
 
-export type LoginType = z.infer<typeof LoginSchema>;
+export type SignInType = z.infer<typeof SignInSchema>;
