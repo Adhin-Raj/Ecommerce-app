@@ -4,11 +4,13 @@ import { SignupSchema } from "@/src/schemas/signup/signup";
 import { SignUpType } from "@/src/schemas/signup/signup.dto";
 import { useSignUp } from "@clerk/clerk-expo";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { KeyboardAvoidingView, Platform, StyleSheet, Text } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import FacebookLogo from "@/src/assets/images/facebook.png";
+import GoogleLogo from "@/src/assets/images/google.png";
 
 export default function SignUpScreen() {
   const { isLoaded, setActive, signUp } = useSignUp();
@@ -147,7 +149,7 @@ export default function SignUpScreen() {
                   label="Password"
                   placeholderText="Enter your password"
                   passwordShowFun={handleShowPassword}
-                  showPassword={showPassword}
+                  showPassword={!showPassword}
                   onChange={onChange}
                   onBlur={onBlur}
                   value={value}
@@ -160,6 +162,51 @@ export default function SignUpScreen() {
               btnLabel="Continue"
               handlePress={handleSubmit(onSignUpPress)}
             />
+             <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBlock: 24,
+          }}
+        >
+          <View style={styles.line} />
+          <Text style={{ color: "#808080", marginInline: 10 }}>Or</Text>
+          <View style={styles.line} />
+        </View>
+        <CustomButton
+          btnLabel="Sign Up with Google"
+          imgSrc={GoogleLogo}
+          customBtnStyle={styles.googleBtn}
+          customLabelStyle={styles.googleBtnLabel}
+        />
+        <CustomButton
+          btnLabel="Sign Up with Facebook"
+          imgSrc={FacebookLogo}
+          customBtnStyle={styles.facebookBtn}
+        />
+        <View style={styles.login}>
+          <Text
+            style={[
+              styles.linkText,
+              { fontFamily: "medium-sans", color: "#777777" },
+            ]}
+          >
+            Already have an account?
+          </Text>
+          <Link
+            href={"/(auth)/sign-in"}
+            style={[
+              styles.linkText,
+              {
+                textDecorationLine: "underline",
+                fontFamily: "sans",
+                marginLeft: 4,
+              },
+            ]}
+          >
+            Login
+          </Link>
+        </View>
           </>
         ) : (
           <>
@@ -227,7 +274,7 @@ const styles = StyleSheet.create({
   },
   login: {
     flexDirection: "row",
-    marginTop: 140,
+    marginTop: 30,
     justifyContent: "center",
   },
 });
