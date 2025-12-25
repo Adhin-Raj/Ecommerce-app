@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Card from "./Card";
+import SearchInput from "./SearchInput";
 
 export default function Home() {
   return (
@@ -27,17 +28,7 @@ export default function Home() {
       </View>
       {/* search with filter  */}
       <View style={styles.searchFilterContainer}>
-        <View style={{ width: "84%" }}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search for clothes..."
-          />
-          <Image
-            source={SearchIcon}
-            alt="search-icon"
-            style={styles.searchIcon}
-          />
-        </View>
+        <SearchInput/>
         <TouchableOpacity style={styles.filterIcon}>
           <Image
             source={FilterIcon}
@@ -99,24 +90,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 16,
     justifyContent: "space-between",
-  },
-  searchInput: {
-    borderColor: "#111",
-    borderWidth: 1,
-    width: "98%",
-    borderRadius: 10,
-    position: "relative",
-    paddingLeft: 42,
-    fontFamily: "medium-sans",
-    letterSpacing: -1,
-    height: 46,
-  },
-  searchIcon: {
-    position: "absolute",
-    top: 10,
-    left: 12,
-    width: 24,
-    height: 24,
   },
   filterIcon: {
     backgroundColor: "#111",
