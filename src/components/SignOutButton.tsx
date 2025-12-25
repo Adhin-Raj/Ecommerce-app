@@ -1,22 +1,48 @@
 import { useClerk } from "@clerk/clerk-expo";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Linking from "expo-linking";
-import { Text, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 export const SignOutButton = () => {
   const { signOut } = useClerk();
+  const router = useRouter();
 
   const handleSignOut = async () => {
     try {
       await signOut();
-      Linking.openURL(Linking.createURL("/"));
+      router.replace("/(auth)/sign-in");
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
     }
   };
 
   return (
-    <TouchableOpacity onPress={handleSignOut}>
-      <Text>Sign Out</Text>
+    <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+      <Ionicons
+        name="log-out-sharp"
+        color="red"
+        size={20}
+        style={styles.iconStyle}
+      />
+      <Text style={styles.text}>LogOut</Text>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginTop: 20,
+  },
+  iconStyle: {
+    transform: [{ rotate: "180deg" }],
+  },
+  text: {
+    fontSize: 16,
+    fontFamily: "medium-sans",
+    color: "red",
+  },
+});
