@@ -32,8 +32,8 @@ export default function Index() {
     return <CustomSplashScreen />;
   }
 
-  if(isSignedIn) {
-    return <Redirect href={'/(home)'}/>
+  if (isSignedIn) {
+    return <Redirect href={"/(tabs)"} />;
   }
 
   return (
