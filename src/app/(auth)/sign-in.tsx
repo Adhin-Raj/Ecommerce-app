@@ -1,5 +1,7 @@
+import FacebookLogo from "@/src/assets/images/facebook.png";
 import CustomButton from "@/src/components/CustomButton";
 import CustomInput from "@/src/components/CustomInput";
+import GoogleLogin from "@/src/components/GoogleLogin";
 import { SignInSchema } from "@/src/schemas/login/login";
 import { SignInType } from "@/src/schemas/login/login.dto";
 import { useSignIn } from "@clerk/clerk-expo";
@@ -15,8 +17,6 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import FacebookLogo from "@/src/assets/images/facebook.png";
-import GoogleLogo from "@/src/assets/images/google.png";
 
 export default function Page() {
   const { isLoaded, setActive, signIn } = useSignIn();
@@ -29,7 +29,6 @@ export default function Page() {
 
   const onSignInPress = async (data: SignInType) => {
     if (!isLoaded) return;
-    console.log(data);
     try {
       const signInAttempt = await signIn.create({
         identifier: data.email,
@@ -38,7 +37,7 @@ export default function Page() {
 
       if (signInAttempt.status === "complete") {
         await setActive({ session: signInAttempt.createdSessionId });
-        router.replace("/");
+        router.replace("/(tabs)");
       } else {
         console.error(JSON.stringify(signInAttempt, null, 2));
       }
@@ -128,12 +127,7 @@ export default function Page() {
           <Text style={{ color: "#808080", marginInline: 10 }}>Or</Text>
           <View style={styles.line} />
         </View>
-        <CustomButton
-          btnLabel="Login with Google"
-          imgSrc={GoogleLogo}
-          customBtnStyle={styles.googleBtn}
-          customLabelStyle={styles.googleBtnLabel}
-        />
+        <GoogleLogin label="Login with Google" />
         <CustomButton
           btnLabel="Login with Facebook"
           imgSrc={FacebookLogo}
@@ -152,7 +146,7 @@ export default function Page() {
             href={"/(auth)/sign-up"}
             style={[
               styles.linkText,
-              { textDecorationLine: "underline", fontFamily: "sans"},
+              { textDecorationLine: "underline", fontFamily: "sans" },
             ]}
           >
             Join
