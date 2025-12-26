@@ -1,21 +1,46 @@
 import BellIcon from "@/src/assets/images/bell.png";
 import FilterIcon from "@/src/assets/images/filter.png";
-import SearchIcon from "@/src/assets/images/search.png";
 import React from "react";
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Card from "./Card";
 import SearchInput from "./SearchInput";
+import { useGetProductsQuery } from "../store/api";
+
+export interface ProductType {
+  category: string;
+  description: string;
+  id: number;
+  image: string;
+  price: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
+  title: string;
+}
 
 export default function Home() {
+  const category = [
+    "Men's clothing",
+    "Jewelery",
+    "Electronics",
+    "Women's clothing",
+  ];
+  const { isLoading, data, error } = useGetProductsQuery();
+  if(!data) return <ActivityIndicator
+          size={36}
+          color={"black"}
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        />
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -28,7 +53,7 @@ export default function Home() {
       </View>
       {/* search with filter  */}
       <View style={styles.searchFilterContainer}>
-        <SearchInput/>
+        <SearchInput />
         <TouchableOpacity style={styles.filterIcon}>
           <Image
             source={FilterIcon}
@@ -39,30 +64,33 @@ export default function Home() {
       </View>
 
       {/* filter buttons  */}
-      <View style={styles.filterBtnContainer}>
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={styles.filterText}>All</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.filterButton, { backgroundColor: "#111" }]}
-        >
-          <Text style={[styles.filterText, { color: "white" }]}>TShirts</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={styles.filterText}>Jeans</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={styles.filterText}>Shoes</Text>
-        </TouchableOpacity>
-      </View>
 
       <FlatList
-        data={Array.from({ length: 6 })}
-        renderItem={({ index }) => <Card />}
-        numColumns={2}
-        style={styles.cardContainer}
-        showsVerticalScrollIndicator={false}
+        horizontal
+        style={styles.filterBtnContainer}
+        data={category}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.filterButton}>
+            <Text style={styles.filterText}>{item}</Text>
+          </TouchableOpacity>
+        )}
       />
+
+      {isLoading ? (
+        <ActivityIndicator
+          size={36}
+          color={"black"}
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        />
+      ) : (
+        <FlatList<ProductType>
+          data={data ?? []}
+          renderItem={({ item }) => <Card {...item} />}
+          numColumns={2}
+          style={styles.cardContainer}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -99,8 +127,9 @@ const styles = StyleSheet.create({
   },
   filterBtnContainer: {
     marginTop: 16,
-    flexDirection: "row",
-    gap: 8,
+    height: 52,
+    marginLeft: -10,
+    marginBottom: 10,
   },
   filterButton: {
     paddingHorizontal: 20,
@@ -108,11 +137,12 @@ const styles = StyleSheet.create({
     borderColor: "#E6E6E6",
     borderWidth: 1,
     borderRadius: 10,
+    marginLeft: 10,
   },
   filterText: {
     fontFamily: "medium-sans",
   },
   cardContainer: {
-    marginTop: 26,
+    marginBottom: -30,
   },
 });
