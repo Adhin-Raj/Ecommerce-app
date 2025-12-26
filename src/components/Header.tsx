@@ -29,6 +29,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 16,
     alignItems: "center",
+    top:0,
+    position:'fixed'
   },
   title: {
     color: "#1A1A1A",

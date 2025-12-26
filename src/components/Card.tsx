@@ -1,38 +1,48 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
-import ProductImg from "@/src/assets/images/product1.png";
-import HeartImage from "@/src/assets/images/heart.png";
+import React, { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { ProductType } from "./Home";
+import { useRouter } from "expo-router";
 
-interface CardProps {
+interface CardProps extends ProductType {
   isWishlist?: boolean;
 }
 
-export default function Card({ isWishlist=false }: CardProps) {
+export default function Card({
+  isWishlist = false,
+  price,
+  title,
+  id,
+  image,
+}: CardProps) {
+  const [like, setLike] = useState(false);
+  const router = useRouter()
+  const handleLike = () => {
+    setLike(!like);
+  };
   return (
-    <View style={styles.cardContainer}>
+    <TouchableOpacity style={styles.cardContainer} onPress={()=>router.push(`/${id}`)}>
       <View>
         <Image
-          source={ProductImg}
+          source={{ uri: image }}
           alt="product-icon"
           width={161}
           height={174}
+          style={{ width: 161, height: 174 ,objectFit:'contain'}}
         />
-        {!isWishlist ? (
-          <TouchableOpacity style={styles.wishlistBtn}>
-            <Ionicons name="heart-outline" size={20} />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity style={styles.wishlistBtn}>
-            <Ionicons name="heart-sharp" size={20} color={'red'} />
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity style={styles.wishlistBtn} onPress={handleLike}>
+          <Ionicons
+            name={like || isWishlist ? "heart-sharp" : "heart-outline"}
+            size={20}
+            color={like ? "red" : "black"}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>Regular Fit Slogan</Text>
-        <Text style={styles.price}>$1,190</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.price}>$ {price}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -40,6 +50,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginTop: 24,
     width: "50%",
+    marginRight: 6,
   },
   detailsContainer: {
     gap: 4,

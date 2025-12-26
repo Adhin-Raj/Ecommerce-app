@@ -1,6 +1,5 @@
 import { useClerk } from "@clerk/clerk-expo";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import * as Linking from "expo-linking";
 import { useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
