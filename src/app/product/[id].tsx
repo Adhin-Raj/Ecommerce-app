@@ -6,7 +6,6 @@ import Header from "@/src/components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProductType } from "@/src/components/Home";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import CustomButton from "@/src/components/CustomButton";
 
 export default function ProductDetails() {
   const [product, setProduct] = useState<ProductType | null>(null);

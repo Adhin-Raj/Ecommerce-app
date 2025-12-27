@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
-type IoniconsName = keyof typeof Ionicons.glyphMap;
+export type IoniconsName = keyof typeof Ionicons.glyphMap;
 
 interface NoResultProps{
   iconName:IoniconsName,
