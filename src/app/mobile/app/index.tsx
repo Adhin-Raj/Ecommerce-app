@@ -1,10 +1,10 @@
+import { useAuth } from "@clerk/clerk-expo";
 import { useFonts } from "expo-font";
 import { Redirect, SplashScreen } from "expo-router";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomSplashScreen from "../components/CustomSplashScreen";
-import OnBoarding from "../components/OnBoarding";
-import { useAuth } from "@clerk/clerk-expo";
+import CustomSplashScreen from "../src/components/CustomSplashScreen";
+import OnBoarding from "../src/components/OnBoarding";
 
 SplashScreen.preventAutoHideAsync();
 

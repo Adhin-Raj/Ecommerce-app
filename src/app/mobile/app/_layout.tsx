@@ -1,8 +1,8 @@
-import { Stack } from "expo-router";
-import { tokenCache } from "@clerk/clerk-expo/token-cache";
 import { ClerkProvider } from "@clerk/clerk-expo";
+import { tokenCache } from "@clerk/clerk-expo/token-cache";
+import { Stack } from "expo-router";
 import { Provider } from "react-redux";
-import { store } from "../store";
+import { store } from "../src/store";
 
 export default function RootLayout() {
   return (
@@ -12,7 +12,7 @@ export default function RootLayout() {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      </Stack>
+      </Stack> 
       </Provider>
     </ClerkProvider>
   );

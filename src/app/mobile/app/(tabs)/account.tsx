@@ -1,28 +1,60 @@
-import { StyleSheet, View } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/src/components/Header";
 import { SignOutButton } from "@/src/components/SignOutButton";
 import SubMenu from "@/src/components/SubMenu";
+import { useRouter } from "expo-router";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Account() {
+  const router = useRouter();
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Account" />
       <View style={[styles.line, { marginTop: 24 }]} />
-      <SubMenu iconName="cube-outline" menuLabel="My Orders" />
+      <SubMenu
+        iconName="cube-outline"
+        menuLabel="My Orders"
+        hasForwardIcon={true}
+      />
       <View style={styles.boldLine} />
-      <SubMenu iconName="person-outline" menuLabel="My Details" />
+      <SubMenu
+        iconName="person-outline"
+        menuLabel="My Details"
+        path={() => router.push("/my-details")}
+        hasForwardIcon={true}
+      />
       <View style={styles.line} />
-      <SubMenu iconName="home-outline" menuLabel="Address Book" />
+      <SubMenu
+        iconName="home-outline"
+        menuLabel="Address Book"
+        hasForwardIcon={true}
+      />
       <View style={styles.line} />
-      <SubMenu iconName="card-outline" menuLabel="Payment Methods" />
+      <SubMenu
+        iconName="card-outline"
+        menuLabel="Payment Methods"
+        hasForwardIcon={true}
+      />
       <View style={styles.line} />
-      <SubMenu iconName="notifications-outline" menuLabel="Notifications" />
+      <SubMenu
+        iconName="notifications-outline"
+        menuLabel="Notifications"
+        hasForwardIcon={true}
+      />
       <View style={styles.boldLine} />
-      <SubMenu iconName="help-circle-outline" menuLabel="FAQs" />
+      <SubMenu
+        iconName="help-circle-outline"
+        menuLabel="FAQs"
+        hasForwardIcon={true}
+      />
       <View style={styles.line} />
-      <SubMenu iconName="information" menuLabel="Help Center" />
+      <SubMenu
+        iconName="information"
+        menuLabel="Help Center"
+        path={() => router.push("/help-center")}
+        hasForwardIcon={true}
+      />
       <View style={styles.boldLine} />
       <SignOutButton />
     </SafeAreaView>
