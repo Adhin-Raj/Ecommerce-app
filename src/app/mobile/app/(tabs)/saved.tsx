@@ -1,9 +1,8 @@
-import { FlatList, StyleSheet } from "react-native";
-import React from "react";
 import Header from "@/src/components/Header";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Card from "@/src/components/Card";
 import NoResult from "@/src/components/NoResult";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Saved() {
   return (

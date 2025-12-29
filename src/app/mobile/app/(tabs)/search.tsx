@@ -1,18 +1,21 @@
-import {  StyleSheet} from "react-native";
-import React from "react";
-import SearchInput from "@/src/components/SearchInput";
-import { SafeAreaView } from "react-native-safe-area-context";
-import RecentSearch from "@/src/components/RecentSearch";
-import NoResult from "@/src/components/NoResult";
 import Header from "@/src/components/Header";
+import NoResult from "@/src/components/NoResult";
+import SearchInput from "@/src/components/SearchInput";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Search() {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Search"/>
+      <Header title="Search" />
       <SearchInput customStyle={{ width: "100%", marginTop: 20 }} />
       {/* <RecentSearch /> */}
-      <NoResult description="Try a similar word or something more general." iconName="search" text="No Result Found!"/>
+      <NoResult
+        description="Try a similar word or something more general."
+        iconName="search"
+        text="No Result Found!"
+      />
     </SafeAreaView>
   );
 }

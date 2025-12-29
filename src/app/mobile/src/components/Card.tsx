@@ -16,19 +16,25 @@ export default function Card({
   image,
 }: CardProps) {
   const [like, setLike] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const handleLike = () => {
     setLike(!like);
   };
   return (
-    <TouchableOpacity style={styles.cardContainer} onPress={()=>router.push(`/${id}`)}>
+    <TouchableOpacity
+      style={styles.cardContainer}
+      onPress={() => router.push({
+      pathname: "/product/[id]",
+      params: { id:id },
+    })}
+    >
       <View>
         <Image
           source={{ uri: image }}
           alt="product-icon"
           width={161}
           height={174}
-          style={{ width: 161, height: 174 ,objectFit:'contain'}}
+          style={{ width: 161, height: 174, objectFit: "contain" }}
         />
         <TouchableOpacity style={styles.wishlistBtn} onPress={handleLike}>
           <Ionicons

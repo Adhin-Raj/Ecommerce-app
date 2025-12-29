@@ -6,18 +6,30 @@ import { IoniconsName } from "./NoResult";
 interface SubMenuType {
   menuLabel: string;
   iconName: IoniconsName;
+  path?: () => void;
+  hasForwardIcon?: boolean;
+  customStyle?: Object;
 }
 
-export default function SubMenu({ iconName, menuLabel }: SubMenuType) {
+export default function SubMenu({
+  iconName,
+  menuLabel,
+  path,
+  hasForwardIcon,
+  customStyle,
+}: SubMenuType) {
   return (
-    <TouchableOpacity style={styles.menuContainer}>
+    <TouchableOpacity
+      style={[styles.menuContainer, customStyle]}
+      onPress={path}
+    >
       <View style={styles.iconText}>
         <Ionicons name={iconName} size={24} />
         <Text style={styles.text}>{menuLabel}</Text>
       </View>
-      <TouchableOpacity>
+      {hasForwardIcon && (
         <Ionicons name="chevron-forward-outline" size={24} color="gray" />
-      </TouchableOpacity>
+      )}
     </TouchableOpacity>
   );
 }

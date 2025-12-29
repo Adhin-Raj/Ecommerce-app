@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "@/src/components/Header";
-import NoResult from "@/src/components/NoResult";
+import ArrowRight from "@/src/assets/images/arrow-right.png";
 import CartProduct from "@/src/components/CartProduct";
 import CustomButton from "@/src/components/CustomButton";
-import ArrowRight from '@/src/assets/images/arrow-right.png'
+import Header from "@/src/components/Header";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Cart() {
   return (
@@ -34,8 +33,12 @@ export default function Cart() {
             <Text style={styles.amount}>$ 80</Text>
           </View>
           <View style={styles.line} />
-          <Text style={[styles.amount,{alignSelf:'flex-end',marginBottom:16}]}>$ 5,950 </Text>
-          <CustomButton btnLabel="Go To Checkout" imgSrc={ArrowRight}/>
+          <Text
+            style={[styles.amount, { alignSelf: "flex-end", marginBottom: 16 }]}
+          >
+            $ 5,950{" "}
+          </Text>
+          <CustomButton btnLabel="Go To Checkout" imgSrc={ArrowRight} />
         </View>
       </View>
     </SafeAreaView>
