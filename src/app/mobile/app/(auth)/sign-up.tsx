@@ -4,10 +4,10 @@ import CustomInput from "@/src/components/CustomInput";
 import GoogleLogin from "@/src/components/GoogleLogin";
 import { SignupSchema } from "@/src/schemas/signup/signup";
 import { SignUpType } from "@/src/schemas/signup/signup.dto";
-import { useSignUp } from "@clerk/clerk-expo";
+import { useSignUp, useUser } from "@clerk/clerk-expo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   KeyboardAvoidingView,
@@ -24,6 +24,8 @@ export default function SignUpScreen() {
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { user } = useUser();
+  const syncAttempt = useRef(false);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -54,7 +56,7 @@ export default function SignUpScreen() {
         code,
       });
 
-      if ((signUpAttempt.status = "complete")) {
+      if (signUpAttempt.status === "complete") {
         await setActive({ session: signUpAttempt.createdSessionId });
         router.replace("/(tabs)");
       } else {
@@ -64,6 +66,12 @@ export default function SignUpScreen() {
       console.error(JSON.stringify(error, null, 2));
     }
   };
+
+  useEffect(() => {
+    if (!user || syncAttempt.current) return;
+    console.log("working");
+    syncAttempt.current = true;
+  }, [user]);
 
   const {
     control,

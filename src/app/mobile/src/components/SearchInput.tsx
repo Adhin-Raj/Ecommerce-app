@@ -1,18 +1,21 @@
-import { Image, StyleSheet, TextInput, View } from "react-native";
-import React from "react";
 import SearchIcon from "@/src/assets/images/search.png";
+import React from "react";
+import { Image, StyleSheet, TextInput, View } from "react-native";
 
-interface SearchInputProps{
-    handleSearch?:()=>void,
-    customStyle?:Object
+interface SearchInputProps {
+  handleSearch?: () => void;
+  customStyle?: Object;
 }
 
-export default function SearchInput({handleSearch,customStyle}:SearchInputProps) {
+export default function SearchInput({
+  handleSearch,
+  customStyle,
+}: SearchInputProps) {
   return (
-    <View style={[{ width: "84%" },customStyle]}>
+    <View style={[{ width: "84%" }, customStyle]}>
       <TextInput
         style={styles.searchInput}
-        placeholder="Search for clothes..."
+        placeholder="Search for products..."
       />
       <Image source={SearchIcon} alt="search-icon" style={styles.searchIcon} />
     </View>
