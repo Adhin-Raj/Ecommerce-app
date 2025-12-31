@@ -1,8 +1,10 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import { useAuth, useUser } from "@clerk/clerk-expo";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { ProductType } from "./Home";
 import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { axiosInstance } from "../service/axios";
+import { ProductType } from "./Home";
 
 interface CardProps extends ProductType {
   isWishlist?: boolean;
@@ -17,16 +19,41 @@ export default function Card({
 }: CardProps) {
   const [like, setLike] = useState(false);
   const router = useRouter();
+  const { getToken } = useAuth();
+  const { user } = useUser();
+
   const handleLike = () => {
     setLike(!like);
   };
+
+  const handleWishlist = async () => {
+    handleLike();
+    try {
+      const token = await getToken();
+      const res = await axiosInstance.post(
+        "/wishlist",
+        { userId: user?.id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("", res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <TouchableOpacity
       style={styles.cardContainer}
-      onPress={() => router.push({
-      pathname: "/product/[id]",
-      params: { id:id },
-    })}
+      onPress={() =>
+        router.push({
+          pathname: "/product/[id]",
+          params: { id: id },
+        })
+      }
     >
       <View>
         <Image
@@ -36,7 +63,7 @@ export default function Card({
           height={174}
           style={{ width: 161, height: 174, objectFit: "contain" }}
         />
-        <TouchableOpacity style={styles.wishlistBtn} onPress={handleLike}>
+        <TouchableOpacity style={styles.wishlistBtn} onPress={handleWishlist}>
           <Ionicons
             name={like || isWishlist ? "heart-sharp" : "heart-outline"}
             size={20}

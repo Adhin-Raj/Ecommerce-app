@@ -3,19 +3,17 @@ import { useSSO } from "@clerk/clerk-expo";
 import { StyleSheet } from "react-native";
 import CustomButton from "./CustomButton";
 
-interface GoogleLoginProps{
-    label:string
+interface GoogleLoginProps {
+  label: string;
 }
 
-export default function GoogleLogin({label}:GoogleLoginProps) {
+export default function GoogleLogin({ label }: GoogleLoginProps) {
   const { startSSOFlow } = useSSO();
-
   const onGooglePress = async () => {
     try {
       const result = await startSSOFlow({
         strategy: "oauth_google",
       });
-
       const { createdSessionId, setActive } = result;
 
       if (createdSessionId && setActive) {

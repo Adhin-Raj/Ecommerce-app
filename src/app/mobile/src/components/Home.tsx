@@ -1,6 +1,7 @@
 import BellIcon from "@/src/assets/images/bell.png";
 import FilterIcon from "@/src/assets/images/filter.png";
-import React from "react";
+import { useAuth, useUser } from "@clerk/clerk-expo";
+import React, { useEffect } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -11,9 +12,10 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { axiosInstance } from "../service/axios";
+import { useGetProductsQuery } from "../store/api";
 import Card from "./Card";
 import SearchInput from "./SearchInput";
-import { useGetProductsQuery } from "../store/api";
 
 export interface ProductType {
   category: string;
@@ -36,11 +38,41 @@ export default function Home() {
     "Women's clothing",
   ];
   const { isLoading, data, error } = useGetProductsQuery();
-  if(!data) return <ActivityIndicator
-          size={36}
-          color={"black"}
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        />
+  const { user } = useUser();
+  const { getToken } = useAuth();
+
+  useEffect(() => {
+    const syncUser = async () => {
+      try {
+        const token = await getToken();
+        const res = await axiosInstance.post(
+          "/api/auth/callback",
+          {
+            firstName: user?.firstName,
+            lastName: user?.lastName,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    syncUser();
+  }, [user]);
+
+  if (!data)
+    return (
+      <ActivityIndicator
+        size={36}
+        color={"black"}
+        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      />
+    );
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -51,7 +83,9 @@ export default function Home() {
           style={{ height: 24, width: 24 }}
         />
       </View>
+
       {/* search with filter  */}
+
       <View style={styles.searchFilterContainer}>
         <SearchInput />
         <TouchableOpacity style={styles.filterIcon}>
