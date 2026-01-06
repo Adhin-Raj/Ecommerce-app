@@ -33,7 +33,7 @@ export interface ProductType {
 export default function Home() {
   const category = [
     "Men's clothing",
-    "Jewelery",
+    "Jewelry",
     "Electronics",
     "Women's clothing",
   ];
@@ -45,7 +45,7 @@ export default function Home() {
     const syncUser = async () => {
       try {
         const token = await getToken();
-        const res = await axiosInstance.post(
+         await axiosInstance.post(
           "/api/auth/callback",
           {
             firstName: user?.firstName,
