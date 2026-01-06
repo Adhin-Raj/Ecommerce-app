@@ -1,7 +1,9 @@
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useUser } from "@clerk/clerk-expo";
 
 export default function TabLayout() {
+ const { user } = useUser()
   return (
     <Tabs
       screenOptions={{ tabBarActiveTintColor: "black", headerShown: false }}
@@ -58,6 +60,23 @@ export default function TabLayout() {
           ),
         }}
       />
+      
+        
+         <Tabs.Screen
+        name="admin/index"
+        options={{
+          title: "Admin",
+          href:user?.firstName === 'Admin' ? '/(tabs)/admin':null,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "grid" : "grid-outline"}
+              size={24}
+              color={color}
+            />
+          ),
+        }}
+      />
+      
       <Tabs.Screen
         name="account"
         options={{
@@ -71,6 +90,7 @@ export default function TabLayout() {
           ),
         }}
       />
+      
     </Tabs>
   );
 }
