@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    emailAddress: {
+      type: String,
+      required: true,
+    },
     clerkId: {
       type: String,
       required: true,
@@ -22,5 +26,3 @@ const userSchema = new mongoose.Schema(
 );
 
 export const User = mongoose.model("User", userSchema);
-
-

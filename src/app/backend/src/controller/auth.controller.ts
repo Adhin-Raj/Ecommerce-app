@@ -9,14 +9,15 @@ export const authCallback = async (req: Request, res: Response) => {
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName,emailAddress } = req.body;
 
     const user = await User.findOne({ clerkId: userId });
     if (!user) {
       await User.create({
         clerkId: userId,
-        firstName: firstName,
-        lastName: lastName,
+        firstName,
+        lastName,
+        emailAddress
       });
     }
     res.status(200).json({ success: true });
