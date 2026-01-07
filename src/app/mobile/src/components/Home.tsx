@@ -50,6 +50,7 @@ export default function Home() {
           {
             firstName: user?.firstName,
             lastName: user?.lastName,
+            emailAddress:user?.primaryEmailAddress?.emailAddress
           },
           {
             headers: {
