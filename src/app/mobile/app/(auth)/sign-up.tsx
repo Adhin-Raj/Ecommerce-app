@@ -69,7 +69,6 @@ export default function SignUpScreen() {
 
   useEffect(() => {
     if (!user || syncAttempt.current) return;
-    console.log("working");
     syncAttempt.current = true;
   }, [user]);
 

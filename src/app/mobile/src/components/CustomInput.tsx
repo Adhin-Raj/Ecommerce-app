@@ -18,7 +18,7 @@ interface CustomInputProps {
   placeholderText: string;
   passwordShowFun?: () => void;
   showPassword?: boolean;
-  onChange?: (...event: any[]) => void; //TODO: change optional props
+  onChange?: (text:string) => void; //TODO: change optional props
   onBlur?: Noop; //TODO: change optional props
   value?: string; //TODO: change optional props
   formError?: FieldError; //TODO: change optional props
@@ -42,7 +42,7 @@ export default function CustomInput({
         placeholderTextColor="#999999"
         onBlur={onBlur}
         onChangeText={onChange}
-        value={value}
+        value={value || ''}
         secureTextEntry={showPassword}
         style={styles.input}
       />
