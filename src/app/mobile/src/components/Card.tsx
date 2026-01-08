@@ -39,7 +39,7 @@ export default function Card({
           },
         }
       );
-      console.log("", res.data);
+      // console.log("", res.data);
     } catch (error) {
       console.log(error);
     }

@@ -5,7 +5,6 @@ import { User } from "../models/user.model";
 export const authCallback = async (req: Request, res: Response) => {
   try {
     const { userId } = getAuth(req);
-    console.log('new user creation')
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
     }
